@@ -3,6 +3,7 @@ package jsondiff
 import (
 	"bytes"
 	"encoding/json"
+	"io"
 	"reflect"
 	"sort"
 	"strconv"
@@ -616,11 +617,11 @@ func (ctx *context) printDiff(a, b interface{}) string {
 // hierarchy which don't match exactly, it must be a superset of another one.
 // For example:
 //
-//     {"a": 123, "b": 456, "c": [7, 8, 9]}
+//	{"a": 123, "b": 456, "c": [7, 8, 9]}
 //
 // Is a superset of:
 //
-//     {"a": 123, "c": [7, 8]}
+//	{"a": 123, "c": [7, 8]}
 //
 // NoMatch means there is no match.
 //
@@ -631,11 +632,11 @@ func (ctx *context) printDiff(a, b interface{}) string {
 // human-readable difference between provided JSON documents. It is important
 // to understand that returned format is not a valid JSON and is not meant
 // to be machine readable.
-func Compare(a, b []byte, opts *Options) (Difference, string) {
+func Compare(a, b io.Reader, opts *Options) (Difference, string) {
 	var av, bv interface{}
-	da := json.NewDecoder(bytes.NewReader(a))
+	da := json.NewDecoder(a)
 	da.UseNumber()
-	db := json.NewDecoder(bytes.NewReader(b))
+	db := json.NewDecoder(b)
 	db.UseNumber()
 	errA := da.Decode(&av)
 	errB := db.Decode(&bv)

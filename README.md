@@ -1,4 +1,6 @@
-# JsonDiff library
+# JsonDiff library fork
+
+This fork provides support for io.Reader.
 
 The main purpose of the library is integration into tests which use json and providing human-readable output of test results.
 

@@ -1,3 +1,3 @@
-module github.com/nsf/jsondiff
+module github.com/otherlandlabs/jsondiff
 
 go 1.16
